@@ -713,7 +713,9 @@
     initDishModal();
     initCartPanel();
     initCookieNotice();
-    initPromo();
+    // Окно-приглашение к заказу через 10 секунд — отключено по просьбе владельца.
+    // Чтобы включить, раскомментируйте строку ниже (код в функции initPromo, стили — блок «окно-приглашение к заказу» в site.css).
+    // initPromo();
     initMap();
     initHome();
     initMenuPage();
