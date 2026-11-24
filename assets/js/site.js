@@ -25,6 +25,41 @@
     return forms[2];
   }
 
+  /* ---------- фото блюд: широкие полосы из PDF показываем целиком ----------
+     Фото роллов и сетов в menu.pdf — узкие полосы на чёрном фоне (до 3,6:1).
+     В рамке 16:9 обрезка «приближает» их, поэтому такие фото вписываются
+     целиком (до 2,3:1), а поля сверху и снизу — тот же чёрный фон.
+     Фото, где блюдо заходит в край кадра (пицца, паста), просто кадрируются. */
+  const edgeCanvas = document.createElement("canvas");
+  edgeCanvas.width = 32; edgeCanvas.height = 48;
+  function hasDarkEdges(img) {
+    try {
+      const ctx = edgeCanvas.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0, 32, 48);
+      const px = (y) => ctx.getImageData(0, y, 32, 1).data;
+      let sum = 0;
+      [px(0), px(47)].forEach((d) => { for (let i = 0; i < d.length; i += 4) sum += d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11; });
+      return sum / 64 < 60;
+    } catch (e) { return false; }
+  }
+  function fitDishPhoto(img) {
+    const box = img.parentElement;
+    if (!box || !box.classList.contains("dish__media") || !img.naturalWidth) return;
+    const ratio = img.naturalWidth / img.naturalHeight;
+    const boxRatio = box.clientWidth / Math.max(box.clientHeight, 1);
+    const fit = ratio > boxRatio * 1.2 && hasDarkEdges(img);
+    box.classList.toggle("dish__media--fit", fit);
+    img.style.aspectRatio = fit ? String(Math.min(ratio, 2.3)) : "";
+  }
+  document.addEventListener("load", (e) => {
+    if (e.target.tagName === "IMG") fitDishPhoto(e.target);
+  }, true);
+  function fitAllDishPhotos() {
+    document.querySelectorAll(".dish__media img").forEach((img) => { if (img.complete) fitDishPhoto(img); });
+  }
+  let fitTimer;
+  window.addEventListener("resize", () => { clearTimeout(fitTimer); fitTimer = setTimeout(fitAllDishPhotos, 150); });
+
   /* ---------- карточка блюда ---------- */
   function dishCard(item, opts) {
     opts = opts || {};
@@ -345,9 +380,12 @@
       const item = DATA.items.find((i) => String(i.id) === String(id));
       if (!item) return;
       opener = from || null;
+      /* размеры — от уже загруженного фото карточки, чтобы окно не прыгало */
+      const cardImg = document.querySelector('.dish[data-id="' + item.id + '"] .dish__media img');
+      const dims = cardImg && cardImg.naturalWidth
+        ? ' width="' + cardImg.naturalWidth + '" height="' + cardImg.naturalHeight + '"' : "";
       const img = item.image
-        ? '<figure class="dish-modal__media"><img src="' + IMG_DIR + item.image + '.webp" alt="' + esc(item.name) + '" width="1000" height="750"' +
-          (item.imagePosition ? ' style="object-position:' + esc(item.imagePosition) + '"' : "") + "></figure>"
+        ? '<figure class="dish-modal__media"><img src="' + IMG_DIR + item.image + '.webp" alt="' + esc(item.name) + '"' + dims + '></figure>'
         : "";
       const cat = DATA.categories.find((c) => c.id === item.category);
       dlg.innerHTML =

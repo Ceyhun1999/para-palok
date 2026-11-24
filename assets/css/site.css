@@ -701,9 +701,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 .dish__add[data-added="true"] .i-plus { opacity: 0; transform: scale(0.6); }
 .dish__add[data-added="true"] .i-done { opacity: 1; transform: none; }
 .dish__media {
-  aspect-ratio: 4 / 3;
+  /* 16:9 — среднее соотношение фото, вырезанных из menu.pdf (медиана 1,78):
+     в рамке 4:3 большинство блюд обрезалось по бокам и выглядело «под лупой» */
+  position: relative; isolation: isolate;
+  aspect-ratio: 16 / 9;
   background: var(--slate);
   overflow: hidden;
+}
+/* узкая полоса на чёрном фоне: фото целиком, поля — чёрные, край растушёван */
+.dish__media--fit { background: #050505; }
+.dish__media.dish__media--fit img {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  height: auto; object-fit: cover; object-position: 50% 50% !important;
+  -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+          mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
 }
 .dish__media img {
   width: 100%; height: 100%; object-fit: cover;
@@ -768,7 +779,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .dish--wide .dish__media { aspect-ratio: 21 / 8; }
 @media (max-width: 640px) {
   .dish--wide { grid-column: span 1; }
-  .dish--wide .dish__media { aspect-ratio: 4 / 3; }
+  .dish--wide .dish__media { aspect-ratio: 16 / 9; }
 }
 
 /* ---------- окно блюда ---------- */
@@ -787,8 +798,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--slate); border-radius: var(--radius);
   box-shadow: inset 0 0 0 1px var(--card-line);
 }
-.dish-modal__media { margin: 0; background: var(--ink); min-height: 100%; }
-.dish-modal__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.dish-modal__media {
+  display: flex; align-items: center;
+  margin: 0; background: var(--ink); min-height: 100%;
+}
+/* в окне блюда фото без обрезки */
+.dish-modal__media img { display: block; width: 100%; height: auto; }
 .dish-modal__body {
   display: flex; flex-direction: column; gap: 14px;
   padding: clamp(24px, 4vw, 40px);
@@ -1263,10 +1278,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin-bottom: 14px;
 }
 .dish-grid {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px;
 }
 @media (max-width: 1100px) { .dish-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 760px) { .dish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+@media (max-width: 760px) { .dish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
 @media (max-width: 420px) {
   .dish-grid { grid-template-columns: 1fr; }
 }
