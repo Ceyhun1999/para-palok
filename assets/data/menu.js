@@ -444,12 +444,11 @@ window.PARA_PALOK_MENU = {
       name: "Пицца С креветкой и ананасом",
       description: "Ручное тесто, моцарелла, креветки, ананас, соус для пиццы, соус барбекю",
       portion: "550 гр", price: 870, image: "picca-s-krevetkoy-i-ananasom" },
-    // добавлено вручную 2026-11-23 (нет в menu.pdf), фото — assets/images/Пицца Томаты Страчателла.jpeg
-    { id: "picca-tomaty-strachatella", category: "picca", page: null,
-      name: "Пицца Томаты Страчателла",
-      description: "Томатный соус, моцарелла, базилик, страчателла, томаты, оливковое масло",
-      portion: "365 гр", price: 840, image: "picca-tomaty-strachatella" },
-
+    // добавлено вручную 2026-11-24 (нет в menu.pdf), фото — assets/images/newpizza.jpeg
+    { id: "picca-myasnaya-kruglaya", category: "picca", page: null,
+      name: "Пицца Мясная",
+      description: "Ручное тесто, соус для пиццы, моцарелла, говядина, ветчина, курица, болгарский перец, красный лук, перец хлопья, пармезан, помидоры",
+      portion: "660 гр", price: 1140, image: "picca-myasnaya-kruglaya" },
     /* ---------- Римская пицца (стр. 15) ---------- */
     { id: "picca-margarita", category: "rimskaya-picca", page: 15,
       name: "Пицца Маргарита",
@@ -471,6 +470,11 @@ window.PARA_PALOK_MENU = {
       name: "Пицца Мясная",
       description: "Римское тесто, томатный соус, моцарелла, говядина, ветчина, курица",
       portion: "430 гр", price: 910, image: "picca-myasnaya" },
+    // добавлено вручную 2026-11-23 (нет в menu.pdf), фото — assets/images/Пицца Томаты Страчателла.jpeg
+    { id: "picca-tomaty-strachatella", category: "rimskaya-picca", page: null,
+      name: "Пицца Томаты Страчателла",
+      description: "Томатный соус, моцарелла, базилик, страчателла, томаты, оливковое масло",
+      portion: "365 гр", price: 840, image: "picca-tomaty-strachatella" },
 
     /* ---------- Римская пицца (стр. 16) ---------- */
     { id: "fokachcha-s-parmezanom", category: "rimskaya-picca", page: 16,

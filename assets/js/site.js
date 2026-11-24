@@ -203,8 +203,8 @@
     const svg = document.querySelector(".msgr__i--" + kind + " svg");
     return svg ? svg.outerHTML : "";
   };
-  // Телефон для звонков — из макета, заменить на реальный перед публикацией
-  const CALL_TEL = "74951234567";
+  // Телефон для звонков — тот же номер, что WhatsApp и Telegram
+  const CALL_TEL = "79164424403";
   // доставка дальше 1 км — только при заказе от этой суммы
   const FAR_MIN = 2500;
   function deliveryNote(sum) {
@@ -284,7 +284,7 @@
         '<a class="cart-send cart-send--max" href="' + ORDER_MAX + '" target="_blank" rel="noopener" data-copy>' + msgrIcon("max") + "MAX</a>" +
         "</div>" +
         '<p class="cart-panel__copied" aria-live="polite"></p>' +
-        '<a class="btn btn--white cart-panel__call" href="tel:+' + CALL_TEL + '">Позвонить: +7 (495) 123-45-67</a>' +
+        '<a class="btn btn--white cart-panel__call" href="tel:+' + CALL_TEL + '">Позвонить: +7 (916) 442-44-03</a>' +
         '<button class="cart-panel__clear" type="button" data-clear>Очистить корзину</button>' +
         "</div>";
     }
