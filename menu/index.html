@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;1,800&family=Onest:wght@400;500;600&family=Unbounded:wght@700;800&display=swap">
   <link rel="stylesheet" href="../assets/vendor/bootstrap/offcanvas.css">
-  <link rel="stylesheet" href="../assets/css/site.css?v=20261125a">
+  <link rel="stylesheet" href="../assets/css/site.css?v=20261125b">
 </head>
 <body>
   <a class="skip-link" href="#main">К содержанию</a>
@@ -81,9 +81,23 @@
     </nav>
 
     <aside class="gift-banner container" aria-label="Подарок к заказу">
-      <div><p class="gift-banner__title">Заказ от 3 000 ₽ — подарок на выбор</p>
-      <p>«Калифорния с кунжутом» или морс 0,5 л: клюквенный либо из чёрной смородины. Выберите один подарок в корзине.</p></div>
-      <button class="btn btn--white" type="button" data-gift-cart>Выбрать подарок</button>
+      <div class="gift-banner__copy">
+        <p class="gift-banner__condition">При заказе от 3 000 ₽</p>
+        <h2 class="gift-banner__title">К вашему заказу —<br>подарок на выбор</h2>
+        <p class="gift-banner__text">Любимый ролл или ягодный морс?<br>Выберите один подарок в корзине — угощаем!</p>
+        <button class="btn gift-banner__button" type="button" data-gift-cart>Выбрать подарок</button>
+      </div>
+      <div class="gift-banner__gifts">
+        <figure class="gift-banner__gift">
+          <img src="../assets/images/menu/kaliforniya-s-kunzhutom-black-480.webp" alt="Ролл Калифорния с кунжутом" width="480" height="480" loading="lazy" decoding="async">
+          <figcaption><strong>Калифорния с кунжутом</strong><span>195 г · в подарок</span></figcaption>
+        </figure>
+        <span class="gift-banner__or">или</span>
+        <figure class="gift-banner__gift">
+          <img src="../assets/images/menu/mors-480.webp" alt="Ягодный морс" width="480" height="360" loading="lazy" decoding="async">
+          <figcaption><strong>Ягодный морс · 0,5 л</strong><span>Клюква или чёрная смородина</span></figcaption>
+        </figure>
+      </div>
     </aside>
 
     <div class="container">
