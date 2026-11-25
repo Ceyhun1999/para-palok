@@ -178,6 +178,12 @@
     }
   }
   function initCart() {
+    document.querySelectorAll("[data-gift-cart]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const cart = document.querySelector(".cart");
+        if (cart) cart.click();
+      });
+    });
     renderCartBadge();
     const live = document.createElement("p");
     live.className = "visually-hidden";
@@ -207,6 +213,18 @@
   const CALL_TEL = "79164424403";
   // доставка дальше 1 км — только при заказе от этой суммы
   const FAR_MIN = 2500;
+  const GIFT_MIN = 3000;
+  const GIFTS = [
+    { id: "roll", name: "Калифорния с кунжутом, 195 гр" },
+    { id: "blackcurrant", name: "Морс из чёрной смородины, 0,5 л" },
+    { id: "cranberry", name: "Морс клюквенный, 0,5 л" }
+  ];
+  function giftNote(sum, selected) {
+    if (sum < GIFT_MIN) return '<div class="cart-gift"><p><strong>Подарок от 3 000 ₽</strong></p><p>Добавьте ещё на ' + fmtPrice(GIFT_MIN - sum) + ' и выберите ролл или морс 0,5 л в подарок.</p></div>';
+    return '<fieldset class="cart-gift"><legend>Ваш подарок за заказ от 3 000 ₽</legend>' +
+      GIFTS.map((gift) => '<label class="cart-gift__option"><input type="radio" name="order-gift" value="' + gift.id + '"' + (gift.id === selected ? ' checked' : '') + '> <span>' + esc(gift.name) + '</span></label>').join('') +
+      '<p>Один подарок на заказ · 0 ₽</p></fieldset>';
+  }
   function deliveryNote(sum) {
     const ok = sum >= FAR_MIN;
     const left = FAR_MIN - sum;
@@ -232,6 +250,7 @@
     const panel = bootstrap.Offcanvas.getOrCreateInstance(box);
     let opener = null;
     let orderText = "";
+    let selectedGift = "roll";
 
     function lines() {
       const cart = readCart();
@@ -271,11 +290,13 @@
       const text = orderText = "Здравствуйте! Хочу заказать:\n" +
         ls.map((l) => "— " + l.item.name + " × " + l.qty + " = " + fmtPrice(l.item.price * l.qty)).join("\n") +
         "\nИтого: " + fmtPrice(sum) + " (без учёта доставки)" +
+        (sum >= GIFT_MIN ? "\nПодарок: " + GIFTS.find((gift) => gift.id === selectedGift).name + " — 0 ₽" : "") +
         "\nАдрес доставки: ";
       box.innerHTML = head +
         '<ul class="cart-panel__list">' + rows + "</ul>" +
         '<div class="cart-panel__foot">' +
         '<div class="cart-panel__total"><span>Итого</span><strong>' + fmtPrice(sum) + "</strong></div>" +
+        giftNote(sum, selectedGift) +
         deliveryNote(sum) +
         '<p class="cart-panel__send">Отправить заказ</p>' +
         '<div class="cart-panel__msgrs">' +
@@ -288,6 +309,14 @@
         '<button class="cart-panel__clear" type="button" data-clear>Очистить корзину</button>' +
         "</div>";
     }
+    box.addEventListener("change", (e) => {
+      if (!e.target.matches('input[name="order-gift"]')) return;
+      const gift = GIFTS.find((entry) => entry.id === e.target.value);
+      if (!gift) return;
+      selectedGift = gift.id;
+      render();
+      box.querySelector('input[value="' + selectedGift + '"]').focus({ preventScroll: true });
+    });
     openers.forEach((b) => b.addEventListener("click", () => { opener = b; render(); panel.show(); }));
     box.addEventListener("hidden.bs.offcanvas", () => {
       if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
@@ -490,8 +519,7 @@
     setTimeout(tryShow, Math.max(0, PROMO_DELAY - spent));
 
     function show() {
-      const h = new Date().getHours();
-      const title = h >= 16 || h < 4 ? "Роллы к ужину" : "Роллы к обеду";
+      const title = "К заказу — подарок";
       const items = DATA.items.filter((i) => i.popular).slice(0, 3);
       const rows = items.map((it) =>
         '<li class="promo__item">' +
@@ -513,7 +541,7 @@
         '<div class="promo__body">' +
         '<button class="promo__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
         '<h2 class="promo__title" id="promo-title">' + title + "</h2>" +
-        '<p class="promo__lead">Привезём бесплатно до&nbsp;1&nbsp;км и&nbsp;по&nbsp;ЖК на&nbsp;Донецкой, 34к1. Каждый день с&nbsp;11:00 до&nbsp;23:00.</p>' +
+        '<p class="promo__lead">При заказе от&nbsp;3&nbsp;000&nbsp;₽ выберите подарок: «Калифорния с&nbsp;кунжутом» или морс 0,5&nbsp;л — клюквенный или из&nbsp;чёрной смородины. Выбор подарка — в&nbsp;корзине.</p>' +
         '<p class="promo__sub">Чаще всего заказывают</p>' +
         '<ul class="promo__list">' + rows + "</ul>" +
         '<div class="promo__actions">' +

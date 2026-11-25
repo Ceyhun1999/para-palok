@@ -1324,3 +1324,21 @@ ul { margin: 0; padding: 0; list-style: none; }
   .dish-modal[open] .dish-modal__box { animation: dm-fade 150ms ease-out; }
   .fab__menu li, .fab[data-open="true"] .fab__menu li { transform: none; transition: opacity 120ms ease; transition-delay: 0ms; }
 }
+
+/* Подарок к заказу */
+.gift-banner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 28px; border-block: 1px solid var(--line); }
+.gift-banner__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--ember); margin-bottom: 8px; }
+.gift-banner p + p { color: var(--ash); max-width: 72ch; }
+.gift-banner .btn { flex-shrink: 0; }
+.cart-gift { margin: 0 0 10px; padding: 12px; border: 1px solid var(--ember); border-radius: 10px; min-width: 0; }
+.cart-gift legend { padding-inline: 4px; font-weight: 600; font-size: 1rem; }
+.cart-gift strong { color: var(--ember); }
+.cart-gift p { font-size: 0.875rem; line-height: 1.45; color: var(--ash); }
+.cart-gift__option { display: flex; gap: 8px; align-items: center; min-height: 44px; cursor: pointer; font-size: 0.9375rem; }
+.cart-gift__option input { appearance: auto; accent-color: var(--ember); width: 18px; height: 18px; flex-shrink: 0; }
+@media (max-width: 760px) { .gift-banner { flex-direction: column; align-items: flex-start; gap: 16px; } }
+
+/* На невысоких экранах вся корзина прокручивается вместе с выбором подарка. */
+.cart-panel.offcanvas { overflow-y: auto; }
+.cart-panel__head, .cart-panel__foot { flex-shrink: 0; }
+.cart-panel__list { flex: 1 0 auto; overflow-y: visible; }

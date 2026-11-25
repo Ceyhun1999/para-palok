@@ -31,6 +31,7 @@ window.PARA_PALOK_MENU = {
     { id: "salaty",            title: "Салаты", cover: "salat-konfeta",                 pages: [11] },
     { id: "zakuski",           title: "Закуски", cover: "krevetka-tempura",                pages: [12] },
     { id: "goryachie-blyuda",  title: "Горячие блюда", cover: "steyk-iz-lososya",          pages: [13] },
+    { id: "deserty", title: "Десерты", cover: "shokoladnyy-roll-s-orehom", pages: [] },
     { id: "napitki",           title: "Напитки", cover: "mors",                pages: [13]
       /* морс стоит в PDF на странице «Горячие блюда» без отдельного заголовка */
     },
@@ -39,6 +40,18 @@ window.PARA_PALOK_MENU = {
   ],
 
   items: [
+    // Новые позиции по правкам клиента, 2026-11-25.
+    { id: "kaliforniya-s-kunzhutom", category: "holodnye-rolly", page: null,
+      name: "Калифорния с кунжутом",
+      description: "Рис, нори, краб, авокадо, огурец, кунжут.",
+      portion: "195 гр", price: 620, image: "kaliforniya-s-kunzhutom-black" },
+    { id: "shokoladnyy-roll-s-orehom", category: "deserty", page: null,
+      name: "Шоколадный ролл с орехом", description: "",
+      portion: "140 гр", price: 520, image: "shokoladnyy-roll-s-orehom" },
+    { id: "fruktovyy-roll", category: "deserty", page: null,
+      name: "Фруктовый ролл", description: "",
+      portion: "155 гр", price: 490, image: "fruktovyy-roll" },
+
     /* ---------- Холодные роллы (стр. 2) ---------- */
     { id: "filadelfiya-v-ogurce", category: "holodnye-rolly", page: 2,
       name: "Филадельфия в огурце",
@@ -60,12 +73,12 @@ window.PARA_PALOK_MENU = {
     { id: "kaliforniya-s-krevetkoy", category: "holodnye-rolly", page: null,
       name: "Калифорния с креветкой",
       description: "Рис, нори, сыр, креветка, огурец, тобико.",
-      portion: "205 гр", price: 710, image: "kaliforniya-s-krevetkoy" },
+      portion: "205 гр", price: 710, image: "kaliforniya-s-krevetkoy-black" },
     // добавлено вручную 2026-11-23 (нет в menu.pdf), фото — assets/images/Калифорния с угрём.jpeg
     { id: "kaliforniya-s-ugrem", category: "holodnye-rolly", page: null,
       name: "Калифорния с угрём",
       description: "Рис, нори, сыр, угорь, огурец, тобико.",
-      portion: "205 гр", price: 720, image: "kaliforniya-s-ugrem" },
+      portion: "205 гр", price: 720, image: "kaliforniya-s-ugrem-black" },
     { id: "filadelfiya", category: "holodnye-rolly", page: 2,
       name: "Филадельфия",
       description: "Нори, рис, сыр, огурец, лосось.",
@@ -307,7 +320,7 @@ window.PARA_PALOK_MENU = {
     { id: "vok-ovoshchnoy", category: "voki", page: null,
       name: "Вок овощной",
       description: "Болгарский перец, цукини, шампиньоны, соус терияки, лапша удон, кунжут.",
-      portion: "250 гр", price: 510, image: "vok-ovoshchnoy" },
+      portion: "250 гр", price: 510, image: "vok-ovoshchnoy-black" },
 
     /* ---------- Супы (стр. 10) ---------- */
     { id: "tom-yam-s-moreproduktami", category: "supy", page: 10,
